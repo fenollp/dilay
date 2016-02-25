@@ -1,0 +1,27 @@
+sudo: false
+
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-precise
+      - ubuntu-toolchain-r-test
+    packages:
+      - clang-3.7
+      - gcc-5
+      - g++-5
+      # Actual dependencies
+      - libqt5-dev
+      - libglm-dev
+
+install:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+
+script:
+  - qmake -r
+  - make release
